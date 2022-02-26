@@ -237,6 +237,7 @@ Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
 ```
 * **Debugging**
+
 Here use hello_riscv from Minimum baremetal SDK as example.
 
 after `riscv-openocd -f tigard-jag.cfg -f gd32vf103.cfg`, run `<your triplet>-gdb -q main.elf`:
