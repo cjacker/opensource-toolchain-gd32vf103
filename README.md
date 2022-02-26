@@ -86,7 +86,7 @@ export PATH=/opt/riscv-gnu-toolchain/bin:$PATH
 you can add it to `~/.bashrc`, launch terminal and try to run `riscv32-unknown-elf-gcc` in terminal to see it works or not.
 
 ### 2.2 Use prebuilt toolchain
-There is a lot of prebuilt riscv toolchain you can download and use directly if they support the arch 'rv32imac'. Here is two choice with well supported.
+There are a lot of prebuilt riscv toolchains you can download and use directly if they support the arch 'rv32imac'. Here is two choice with well supported.
 
 *   Nuclei official toolchain
 
@@ -315,7 +315,16 @@ sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 ```
 
 ## 4.3 stm32flash for Flashing
+With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, for example:
+
+```
+sudo stm32flash -g 0x08000000 -b 115200 -w main.bin /dev/ttyUSB0
+```
+
+
 ## 4.4 RV LINK for Flashing and Debugging
+
+RV-LINK is a Chinese firmware similar to Black Magic Probe (BMP). It need another piece Longan Nano as a debugger adapter. please refer to https://gitee.com/zoomdy/RV-LINK for more information.
 
 
 
