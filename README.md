@@ -225,7 +225,7 @@ If you used openocd before, it's very easy to understand OpenOCD need a interfac
 
 Before continue, please wire up the USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use tigard with FT2232 as USB/JTAG adapter.
 
-### 4.1.1 Test OpenOCD connection
+* **Test OpenOCD connection**
 ```
 riscv-openocd -f tigard-jag.cfg -f gd32vf103.cfg
 ```
@@ -236,7 +236,7 @@ Info : Listening on port 3333 for gdb connections
 Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
 ```
-### 4.1.2 Debugging
+* **Debugging**
 Here use hello_riscv from Minimum baremetal SDK as example.
 
 after `riscv-openocd -f tigard-jag.cfg -f gd32vf103.cfg`, run `<your triplet>-gdb -q main.elf`:
@@ -282,7 +282,7 @@ $3 = 3389557
 (gdb)
 ```
 
-### 4.2.1 Programming to flash
+* **Programming to flash**
 ```
 # program elf file
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.elf verify reset exit"
