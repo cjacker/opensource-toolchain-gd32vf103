@@ -175,21 +175,25 @@ to
 COMPILE_PREFIX ?= riscv-none-embed-
 ```
 
-# 3. Flashing and Debugging
+# 4. Programming(Flashing) and Debugging
 After toolchain installed and demo project built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
 
-## 3.1 OpenOCD for Flashing and Debugging
+## 4.1 OpenOCD for Programming and Debugging
 The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
 
 Upstream OpenOCD already support RISC-V, but lack ![GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to ![stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.
 
 You can choose either ![official OpenOCD](https://github.com/openocd-org/openocd) with a patch or ![riscv-openocd](https://github.com/riscv/riscv-openocd) fork with gd32vf103 flash driver.
 
+for Official OpenOCD:
+```
+git clone https://github.com/openocd-org/openocd.git
+wget
+```
 
-
-## 3.2 dfu-util for Flashing
-## 3.3 stm32flash for Flashing
-## 3.4 RV LINK for Flashing and Debugging
+## 4.2 dfu-util for Flashing
+## 4.3 stm32flash for Flashing
+## 4.4 RV LINK for Flashing and Debugging
 
 
 
