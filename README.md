@@ -54,14 +54,15 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 <img src="https://user-images.githubusercontent.com/1625340/155824632-bb1fb2d2-301c-434b-b41c-b466d4aee71d.png" width="70%"/>
 </p>
 
-# 2. Toolchain for gd32vf103
-gd32vf103 and longan nano board is well supported by ![riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust![gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) ![longan-nano](https://crates.io/crates/longan-nano).
+**NOTE**, you also need a USB/JTAG debugging adapter for debugging.
 
-## 2.1 RISC-V GNU Toolchain (c/c++ compiler/debugger)
+
+# 2. RISC-V GNU Toolchain for gd32vf103
+gd32vf103 soc and longan nano board is well supported by ![riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust ![gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) ![longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, refer to HERE.
 
 the RISC-V GNU toolchain, which contains compilers and linkers like gcc and g++ as well as helper programs like objcopy and size is available from ![riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain). There are also some prebuilt release provided by nuclei or other teams, such as 'xpack', so you can choose building it yourself or download a prebuilt release.
 
-### 2.1.1 Building from source
+## 2.1 Building from source
 If you want to use a prebuilt release, just ignore this section.
 
 Building a cross compile gnu toolchain was difficult long time ago, you need to understand and use configuration options carefully. ![riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) provided a simpler way to help us building a workable toolchain. It supports two build modes: a generic ELF/Newlib toolchain and a more sophisticated Linux-ELF/glibc toolchain. here, we only need the 'generic ELF/Newlib toolchain' for gd32vf103.
@@ -84,7 +85,7 @@ export PATH=/opt/riscv-gnu-toolchain/bin:$PATH
 ```
 you can add it to `~/.bashrc`, launch terminal and try to run `riscv32-unknown-elf-gcc` in terminal to see it works or not.
 
-### 2.1.2 Use prebuilt toolchain
+### 2.2 Use prebuilt toolchain
 There is a lot of prebuilt riscv toolchain you can download and use directly if they support the arch 'rv32imac'. Here is two choice with well supported.
 
 *   Nuclei official toolchain
@@ -113,10 +114,10 @@ and add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
 
 **NOTE**, the target triplet of xpack riscv toolchain is `riscv-none-embed`.
 
-## 2.2 SDK
+# 3. SDK
 There are several SDK you can use with gd32vf103/longan nano, choose one as you like.
 
-### 2.2.1 Minimum baremetal SDK
+## 3.1 Minimum baremetal SDK
 ![GD32VF103_templates](https://github.com/WRansohoff/GD32VF103_templates) provide minimum baremetal SDK and some project templates for demo.
 
 ```
@@ -153,13 +154,42 @@ make
 'main.elf' and 'main.bin' will be generated. but you can do nothing with them up to now, since it need to 'tranfer' to target board.
 
 
-### 2.2.2 Nuclei official SDK
+### 3.2 Nuclei official SDK
 ![Nuclei RISC-V Software Development Kit](https://github.com/Nuclei-Software/nuclei-sdk) is provided by nucleisys, the designer of nuclei RISC-V Process Core.
 
 ```
 git clone https://github.com/Nuclei-Software/nuclei-sdk.git
+cd application/baremetal
+make SOC=gd32vf103 BOARD=gd32vf103c_longan_nano COMPILE_PREFIX=riscv-none-embed-
 ```
 
+'COMPILE_PREFIX' should set to your toolchain's triplet, above example is for xpack risv toolchain, you can also modify the 'Build/Makefile.conf'.
+
+Change it from:
+
+```
+COMPILE_PREFIX ?= riscv-nuclei-elf-
+```
+to
+```
+COMPILE_PREFIX ?= riscv-none-embed-
+```
+
+# 3. Flashing and Debugging
+After toolchain installed and demo project built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
+
+## 3.1 OpenOCD for Flashing and Debugging
+The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
+
+Upstream OpenOCD already support RISC-V, but lack ![GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to ![stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.
+
+You can choose either ![official OpenOCD](https://github.com/openocd-org/openocd) with a patch or ![riscv-openocd](https://github.com/riscv/riscv-openocd) fork with gd32vf103 flash driver.
+
+
+
+## 3.2 dfu-util for Flashing
+## 3.3 stm32flash for Flashing
+## 3.4 RV LINK for Flashing and Debugging
 
 
 
