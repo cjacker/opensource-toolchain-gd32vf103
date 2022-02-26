@@ -58,7 +58,7 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 
 
 # 2. RISC-V GNU Toolchain for gd32vf103
-gd32vf103 soc and longan nano board is well supported by ![riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust ![gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) ![longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, refer to HERE.
+gd32vf103 soc and longan nano board is well supported by ![riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust crate ![gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) and ![longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, refer to ![riscv-rust/longan-nano](https://github.com/riscv-rust/longan-nano).
 
 the RISC-V GNU toolchain, which contains compilers and linkers like gcc and g++ as well as helper programs like objcopy and size is available from ![riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain). There are also some prebuilt release provided by nuclei or other teams, such as 'xpack', so you can choose building it yourself or download a prebuilt release.
 
