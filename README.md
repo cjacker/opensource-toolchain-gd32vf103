@@ -1,9 +1,6 @@
 # Opensource toolchain for gd32vf103
 
-## 1. Overview 
-### 1.1 GD32VF103 RISC-V MCU
-
-GD32VF103 SoC is the first general RISC-V MCU from GigaDevice Semiconductor which is based on Nuclei RISC-V Process Core.
+**GD32VF103 SoC** is the first general RISC-V MCU from GigaDevice Semiconductor which is based on Nuclei RISC-V Process Core.
 
 If you want to learn more about it, please click https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/
 
@@ -25,9 +22,8 @@ The SoC diagram can be checked as below GD32VF103 SoC Diagram:
 <img src="https://user-images.githubusercontent.com/1625340/155824560-96b510b6-1613-4c9f-9c5b-7228ff2a6d80.png" width="70%"/>
 </p>
 
-### 1.2 Longan Nano development board
 
-Longan Nano is a GD32VF103CBT6 based minimal development board based on GigaDevice's latest RISC-V 32-bit core microcontroller. Convenient for students, engineers, geeks and enthusiasts to access the latest generation of RISC-V processors.
+**Longan Nano** is a GD32VF103CBT6 based minimal development board based on GigaDevice's latest RISC-V 32-bit core microcontroller. Convenient for students, engineers, geeks and enthusiasts to access the latest generation of RISC-V processors.
 
 In the heart of Longan Nano is a GigaDevice's GD32VF103CBT6, based on Nucleisys Bumblebee kernel (support RV32IMAC instruction sets and ECLIC rapid interrupt). You can download instruction set documents here: http://dl.sipeed.com/LONGAN/Nano/DOC/.
 
@@ -54,18 +50,19 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 <img src="https://user-images.githubusercontent.com/1625340/155824632-bb1fb2d2-301c-434b-b41c-b466d4aee71d.png" width="70%"/>
 </p>
 
-**NOTE**, you also need a USB/JTAG debugging adapter for debugging.
+# Hardware requirements
+* a development board with GD32VF103, such as Longan Nano
+* a USB/JTAG adapter
 
+# RISC-V GNU Toolchain for gd32vf103
+gd32vf103 soc and longan nano board is well supported by [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust crate [gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) and [longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, please refer to [riscv-rust/longan-nano](https://github.com/riscv-rust/longan-nano).
 
-# 2. RISC-V GNU Toolchain for gd32vf103
-gd32vf103 soc and longan nano board is well supported by [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust crate [gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) and [longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, refer to [riscv-rust/longan-nano](https://github.com/riscv-rust/longan-nano).
+the RISC-V GNU toolchain, which contains compilers and linkers like gcc and g++ as well as helper programs like objcopy and size is available from [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain). There are also some prebuilt release provided by nuclei or other teams, such as 'xpack', so you can either build it yourself or download a prebuilt release.
 
-the RISC-V GNU toolchain, which contains compilers and linkers like gcc and g++ as well as helper programs like objcopy and size is available from [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain). There are also some prebuilt release provided by nuclei or other teams, such as 'xpack', so you can choose building it yourself or download a prebuilt release.
-
-## 2.1 Building from source
+## Building from source
 If you want to use a prebuilt release, just ignore this section.
 
-Building a cross compile gnu toolchain was difficult long time ago, you need to understand and use configuration options carefully. [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) provided a simpler way to help us building a workable toolchain. It supports two build modes: a generic ELF/Newlib toolchain and a more sophisticated Linux-ELF/glibc toolchain. here, we only need the 'generic ELF/Newlib toolchain' for gd32vf103.
+Building a cross compile gnu toolchain was difficult long time ago, you need to understand and use configuration options carefully. [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) provided a simpler way to help us building a workable toolchain. It supports two build modes: a generic ELF/Newlib toolchain and a more sophisticated Linux-ELF/glibc toolchain. we only need the 'generic ELF/Newlib toolchain' for gd32vf103.
 
 ```
 git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
@@ -77,20 +74,21 @@ make -j<nprocs>
 make install
 ```
 
-After installation, riscv toolchain will be installed to "/opt/riscv-gnu-toolchain" dir, and the [target triplet](https://wiki.osdev.org/Target_Triplet) of gcc should be 'riscv32-unknown-elf-', that's to say, the riscv gcc command is 'riscv32-unknown-elf-gcc' and same for g++/gdb etc.
+It will be installed to "/opt/riscv-gnu-toolchain" dir, and the [target triplet](https://wiki.osdev.org/Target_Triplet) of gcc should be 'riscv32-unknown-elf-'.
 
-Since the installation is not to standard PATH dir, you need add '/opt/riscv-gnu-toolchain/bin' to PATH env according to the shell you use, then you can use these command everywhere. for example, for bash:
+Since the prefix is not set to standard dir, you need add '/opt/riscv-gnu-toolchain/bin' to PATH env. for example, for bash, add it to ~/.bashrc:
 ```
 export PATH=/opt/riscv-gnu-toolchain/bin:$PATH
 ```
-you can add it to `~/.bashrc`, launch terminal and try to run `riscv32-unknown-elf-gcc` in terminal to see it works or not.
 
 ### 2.2 Use prebuilt toolchain
-There are a lot of prebuilt riscv toolchains you can download and use directly if they support the arch 'rv32imac'. Here is two choice with well supported.
+There are a lot of prebuilt riscv toolchains you can download and use directly if it support the arch 'rv32imac'. Here are two choices with well support.
 
 *   Nuclei official toolchain
 
-Nucleisys provide prebuilt toolchain, you can download it from https://nucleisys.com/download.php, up to this tutorial writing, the lastest version is "nuclei_riscv_newlibc_prebuilt_linux64_2022.01.tar.bz2". after download, just extract it to somewhere and modify the PATH env, for example:
+Nucleisys provide prebuilt toolchain, you can download it from https://nucleisys.com/download.php, up to this tutorial written, the lastest version is "nuclei_riscv_newlibc_prebuilt_linux64_2022.01.tar.bz2". 
+
+after download finished, extract it to somewhere and modify the PATH env, for example:
 
 ```
 sudo mkdir -p /opt/nuclei-riscv-toolchain
@@ -99,11 +97,11 @@ sudo tar xf nuclei_riscv_newlibc_prebuilt_linux64_2022.01.tar.bz2 -C /opt/nuclei
 
 And add `/opt/nuclei-riscv-toolchain/bin` to PATH env according to your shell.
 
-**NOTE**, the target triplet of nuclei riscv toolchain is `riscv-nuclei-elf`.
+**NOTE**, the target triplet of nuclei riscv toolchain is **`riscv-nuclei-elf`**.
 
 *   Xpack riscv toolchain
 
-[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack) provde a prebuilt riscv toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v10.2.0-1.2. up to this tutorial writing, the lastest version is '10.2.0', after download, same as nuclei toolchain, extract it and add path to PATH env, for example:
+[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack) provde a prebuilt toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v10.2.0-1.2. up to this tutorial written, the lastest version is '10.2.0', after download finished, extract it and add path to PATH env, for example:
 
 ```
 sudo mkdir -p /opt/xpack-riscv-toolchain
@@ -112,10 +110,10 @@ sudo tar xf xpack-riscv-none-embed-gcc-10.2.0-1.2-linux-x64.tar.gz -C /opt/xpack
 
 and add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
 
-**NOTE**, the target triplet of xpack riscv toolchain is `riscv-none-embed`.
+**NOTE**, the target triplet of xpack riscv toolchain is **`riscv-none-embed`**.
 
 # 3. SDK
-There are several SDK you can use with gd32vf103/longan nano, choose one as you like.
+There are several SDK you can use with gd32vf103/longan nano.
 
 ## 3.1 Minimum baremetal SDK
 [GD32VF103_templates](https://github.com/WRansohoff/GD32VF103_templates) provide minimum baremetal SDK and some project templates for demo.
@@ -123,7 +121,7 @@ There are several SDK you can use with gd32vf103/longan nano, choose one as you 
 ```
 git clone https://github.com/WRansohoff/GD32VF103_templates.git
 ```
-Note, you need modify 'Makefile' of evenry demo project to match your toolchain triplet, the default triplet used in GD32VF103_templates set to:
+Note, you need modify 'Makefile' of every example to match your toolchain triplet, the default triplet of GD32VF103_templates is set to:
 
 ```
 CC = riscv32-unknown-elf-gcc
@@ -151,11 +149,11 @@ cd hello_led
 make
 ```
 
-'main.elf' and 'main.bin' will be generated. but you can do nothing with them up to now, since it need to 'tranfer' to target board.
+'main.elf' and 'main.bin' will be generated. but you can do nothing with them up to now, since it need to 'transfer' to target development board.
 
 
 ### 3.2 Nuclei official SDK
-[Nuclei RISC-V Software Development Kit](https://github.com/Nuclei-Software/nuclei-sdk) is provided by nucleisys, the designer of nuclei RISC-V Process Core.
+[Nuclei RISC-V Software Development Kit](https://github.com/Nuclei-Software/nuclei-sdk) is provided by nucleisys.
 
 ```
 git clone https://github.com/Nuclei-Software/nuclei-sdk.git
@@ -175,7 +173,7 @@ to
 COMPILE_PREFIX ?= riscv-none-embed-
 ```
 
-by default, it will generate the ELF file, please run to generate bin file:
+by default, it will generate the ELF file, run below command to generate bin file:
 
 ```
 make SOC=gd32vf103 BOARD=gd32vf103c_longan_nano COMPILE_PREFIX=riscv-none-embed- bin
@@ -188,16 +186,16 @@ or
 
 
 # 4. Programming(Flashing) and Debugging
-After toolchain installed and demo project built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
+After toolchain installed and demo examples built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
 
 ## 4.1 OpenOCD for Programming and Debugging
 The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
 
-Upstream OpenOCD already support RISC-V, but lack [GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to [stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.
+Upstream OpenOCD already support RISC-V, but lack of [GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to [stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.
 
 You can choose either [official OpenOCD](https://github.com/openocd-org/openocd) with a patch or [riscv-openocd](https://github.com/riscv/riscv-openocd) fork with gd32vf103 flash driver.
 
-Before building OpenOCD, you may need have development package of libusb/libftdi/hidapi installed, different linux distributions provide different package names, install these packages according to your distribution via apt or yum.
+Before building OpenOCD, you may need some development packages of libusb/libftdi/hidapi installed.
 
 for Official OpenOCD:
 ```
@@ -219,9 +217,9 @@ git submodule update --init --recursive --progress
 make && make install
 ```
 
-You will get `riscv-openocd` command installed in `/opt/openocd/bin`, please add '/opt/openocd/bin' to PATH env according to your shell.
+`riscv-openocd` command will be installed in `/opt/openocd/bin`, please add '/opt/openocd/bin' to PATH env according to your shell.
 
-If you used openocd before, it's very easy to understand OpenOCD need a interface config file for USB/JTAG adapter and a target config file for target developement board. you should choose a interface config file according to USB/JTAG adapter you used, and use the ['target board config file'](https://raw.githubusercontent.com/cjacker/opensource-toolchain-gd32vf103/main/gd32vf103.cfg) provied by this repo or download it from [here](https://gist.githubusercontent.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6/raw/f89019b9dc3cec778aaf073a11523d6030c7137c/gd32vf103.cfg), it's the most complete configration for gd32vf103 target board and support OpenOCD 'reset run', any other config files, even the one provided by Nuclei SDK can not handle 'reset run' properly.
+If you used openocd before, it's very easy to understand OpenOCD need a interface config file for USB/JTAG adapter and a target config file for target developement board. you should choose a interface config file according to USB/JTAG adapter you used, and use the ['target board config file'](https://raw.githubusercontent.com/cjacker/opensource-toolchain-gd32vf103/main/gd32vf103.cfg) provied within this repo or download it from [here](https://gist.githubusercontent.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6/raw/f89019b9dc3cec778aaf073a11523d6030c7137c/gd32vf103.cfg), it's the most complete configration for gd32vf103 target board and support OpenOCD 'reset run', any other config files, even the one provided by Nuclei SDK can not handle 'reset run' properly.
 
 Before continue reading, please wire up the USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter.
 
@@ -240,7 +238,7 @@ Info : Listening on port 4444 for telnet connections
 
 Here use hello_riscv from Minimum baremetal SDK as example.
 
-after `riscv-openocd -f tigard-jag.cfg -f gd32vf103.cfg`, run `<your triplet>-gdb -q main.elf`:
+after launch OpenOCD with `riscv-openocd -f tigard-jag.cfg -f gd32vf103.cfg`, run `<your triplet>-gdb -q main.elf`:
 
 ```
 (gdb) target extended-remote :3333
@@ -283,7 +281,7 @@ $3 = 3389557
 (gdb)
 ```
 
-* **Programming to flash**
+* **Programming/Flashing**
 ```
 # program elf file
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.elf verify reset exit"
@@ -293,15 +291,13 @@ riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.bin 0x0800000
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "init; reset run; exit"
 ```
 
-you can combine various OpenOCD commands at the same time, for example, programming and run.
+you can combine various OpenOCD commands together, for example, programming and run.
 ```
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.bin 0x08000000 verify reset exit" -c "init; reset run; exit"
 ```
 
 ## 4.2 dfu-util for programming (no debugging support)
-The GD32VF103 contains a DFU compatible bootloader which allows to program the firmware of your longan-nano without additional hardware like a JTAG adapter; instead just using an ordenary USB-C cable. You can use 'dfu-util' to flash the firmware.
-
-Unfortunately, some versions of this chip shipped with a buggy bootloader and it won't report the correct parameters to flash it sucessfully. As of May 2020, the most recent version of dfu-util from the git repository contains a workaround. Make sure you use an up-to-date version. See this issue for details. 
+The GD32VF103 contains a DFU compatible bootloader which allows to program the firmware of your longan-nano just using an ordinary USB-C cable without additional hardware like a JTAG adapter. You can use 'dfu-util' to flash the firmware.
 
 **Keep the BOOT0 button pressed while power-up or while pressing and releaseing the reset button will enter DFU mode**
 
@@ -316,7 +312,7 @@ sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 ```
 
 ## 4.3 stm32flash for Flashing
-With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, for example:
+With a USB/UART adapter, the board can be programmed by 'stm32flash' over serial connection, for example:
 
 ```
 sudo stm32flash -g 0x08000000 -b 115200 -w main.bin /dev/ttyUSB0
