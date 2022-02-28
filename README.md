@@ -81,7 +81,7 @@ Since the prefix is not set to standard dir, you need add '/opt/riscv-gnu-toolch
 export PATH=/opt/riscv-gnu-toolchain/bin:$PATH
 ```
 
-### 2.2 Use prebuilt toolchain
+## Use prebuilt toolchain
 There are a lot of prebuilt riscv toolchains you can download and use directly if it support the arch 'rv32imac'. Here are two choices with well support.
 
 *   Nuclei official toolchain
@@ -112,10 +112,10 @@ and add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
 
 **NOTE**, the target triplet of xpack riscv toolchain is **`riscv-none-embed`**.
 
-# 3. SDK
-There are several SDK you can use with gd32vf103/longan nano.
+# SDK
+There are several SDKs you can use with gd32vf103/longan nano.
 
-## 3.1 Minimum baremetal SDK
+## Minimum baremetal SDK
 [GD32VF103_templates](https://github.com/WRansohoff/GD32VF103_templates) provide minimum baremetal SDK and some project templates for demo.
 
 ```
@@ -152,7 +152,7 @@ make
 'main.elf' and 'main.bin' will be generated. but you can do nothing with them up to now, since it need to 'transfer' to target development board.
 
 
-### 3.2 Nuclei official SDK
+## Nuclei official SDK
 [Nuclei RISC-V Software Development Kit](https://github.com/Nuclei-Software/nuclei-sdk) is provided by nucleisys.
 
 ```
@@ -185,10 +185,10 @@ or
 ```
 
 
-# 4. Programming(Flashing) and Debugging
+# Programming(Flashing) and Debugging
 After toolchain installed and demo examples built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
 
-## 4.1 OpenOCD for Programming and Debugging
+## OpenOCD for Programming and Debugging
 The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
 
 Upstream OpenOCD already support RISC-V, but lack of [GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to [stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.
@@ -296,7 +296,7 @@ you can combine various OpenOCD commands together, for example, programming and 
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.bin 0x08000000 verify reset exit" -c "init; reset run; exit"
 ```
 
-## 4.2 dfu-util for programming (no debugging support)
+## dfu-util for programming (no debugging support)
 The GD32VF103 contains a DFU compatible bootloader which allows to program the firmware of your longan-nano just using an ordinary USB-C cable without additional hardware like a JTAG adapter. You can use 'dfu-util' to flash the firmware.
 
 **Keep the BOOT0 button pressed while power-up or while pressing and releaseing the reset button will enter DFU mode**
@@ -311,7 +311,7 @@ Programming:
 sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 ```
 
-## 4.3 stm32flash for Flashing
+## stm32flash for Flashing
 With a USB/UART adapter, the board can be programmed by 'stm32flash' over serial connection, for example:
 
 ```
@@ -319,7 +319,7 @@ sudo stm32flash -g 0x08000000 -b 115200 -w main.bin /dev/ttyUSB0
 ```
 
 
-## 4.4 RV LINK for Flashing and Debugging
+## RV LINK for Flashing and Debugging
 
 RV-LINK is a Chinese firmware similar to Black Magic Probe (BMP). It need another piece Longan Nano as a debugger adapter. please refer to https://gitee.com/zoomdy/RV-LINK for more information.
 
