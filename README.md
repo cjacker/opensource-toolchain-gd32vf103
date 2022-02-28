@@ -54,6 +54,12 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 * a development board with GD32VF103, such as Longan Nano
 * a USB/JTAG adapter
 
+# Toolchain overview
+The GD32VF103 toolchain consists of:
+* RISC-V GNU toolchain, gcc as compiler and gdb as debugger
+* SDKs
+* Flashing/Programming tool, include OpenOCD/dfu-util/stm32flash/RV LINK
+
 # RISC-V GNU Toolchain for gd32vf103
 gd32vf103 soc and longan nano board is well supported by [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust crate [gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) and [longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, please refer to [riscv-rust/longan-nano](https://github.com/riscv-rust/longan-nano).
 
