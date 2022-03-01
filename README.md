@@ -225,7 +225,10 @@ make && make install
 
 `riscv-openocd` command will be installed in `/opt/openocd/bin`, please add '/opt/openocd/bin' to PATH env according to your shell.
 
-If you used openocd before, it's very easy to understand OpenOCD need a interface config file for USB/JTAG adapter and a target config file for target developement board. you should choose a interface config file according to USB/JTAG adapter you used, and use the ['target board config file'](https://raw.githubusercontent.com/cjacker/opensource-toolchain-gd32vf103/main/gd32vf103.cfg) provied within this repo or download it from [here](https://gist.githubusercontent.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6/raw/f89019b9dc3cec778aaf073a11523d6030c7137c/gd32vf103.cfg), it's the most complete configration for gd32vf103 target board and support OpenOCD 'reset run', any other config files, even the one provided by Nuclei SDK can not handle 'reset run' properly.
+If you used openocd before, it's very easy to understand OpenOCD need a interface config file for USB/JTAG adapter and a target config file for target developement board. you should choose a interface config file according to USB/JTAG adapter you used, and use the ['target board config file'](https://raw.githubusercontent.com/cjacker/opensource-toolchain-gd32vf103/main/gd32vf103.cfg) provied within this repo or download it from [here](https://gist.githubusercontent.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6/raw/f89019b9dc3cec778aaf073a11523d6030c7137c/gd32vf103.cfg), it's the most complete configration for gd32vf103 target board and support OpenOCD 'reset run', any other config files, even the one provided by Nuclei SDK can not handle 'reset run' properly. 
+
+![screenshot-2022-03-01-12-53-22](https://user-images.githubusercontent.com/1625340/156107374-999fe73e-2a89-4dfc-bb72-e133d30b6bcd.png)
+
 
 Before continue reading, please wire up the USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter.
 
