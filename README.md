@@ -229,7 +229,16 @@ If you used openocd before, it's very easy to understand OpenOCD need a interfac
 
 <img src="https://user-images.githubusercontent.com/1625340/156107374-999fe73e-2a89-4dfc-bb72-e133d30b6bcd.png" width="50%"/>
 
-Before continue reading, please wire up the USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter.
+Before continue reading, please wire up the USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter, you need connect 6 pins:
+
+```
+VCC->3v3
+GND->GND
+TDI->TDI
+TDO->TDO
+TMS->TMS
+TCK->TCK
+```
 
 * **Test OpenOCD connection**
 ```
@@ -320,7 +329,15 @@ sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 ```
 
 ## Flashing with stm32flash
-With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, for example:
+With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, you need wire up 4 pins:
+```
+VCC->3v3
+GND->GND
+RX->T0
+TX->R0
+```
+
+and run :
 
 ```
 sudo stm32flash -g 0x08000000 -b 115200 -w main.bin /dev/ttyUSB0
