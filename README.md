@@ -330,12 +330,17 @@ sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 
 ## Flashing with stm32flash
 With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, you need wire up 4 pins:
+
 ```
 VCC->3v3
 GND->GND
 RX->T0
 TX->R0
 ```
+**If you USB-to-TTL adapter provide 5v VCC only**, it can not connect to 3v3 pin on longan board directly, you should connect the 5v VCC to first pin of leftside, it's 5V pin on longan board.
+
+
+**Keep the BOOT0 button pressed while power-up or keep boot0 pressed, pressing and releasing the reset button will enter BootLoader mode**
 
 and run :
 
