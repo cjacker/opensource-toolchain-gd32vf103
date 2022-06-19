@@ -1,5 +1,7 @@
 # Opensource toolchain for gd32vf103
 
+**NOTE: the MIT license of this repo means all individual resources made by myself, the content of the tutorial and the example codes is licensed under MIT. All third-party opensource projects, upstream source codes and patches to other opensource projects will/should follow their own LICENSE.**
+
 **GD32VF103 SoC** is the first general RISC-V MCU from GigaDevice Semiconductor which is based on Nuclei RISC-V Process Core.
 
 If you want to learn more about it, please click https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/
