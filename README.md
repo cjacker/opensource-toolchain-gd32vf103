@@ -199,9 +199,9 @@ After toolchain installed and demo examples built, you need to 'transfer' the re
 ## Flashing and Debugging with OpenOCD
 The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
 
-Upstream OpenOCD already support RISC-V, but lack of [GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to [stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.
+~~Upstream OpenOCD already support RISC-V, but lack of [GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to [stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.~~
 
-You can choose either [official OpenOCD](https://github.com/openocd-org/openocd) with a patch or [riscv-openocd](https://github.com/riscv/riscv-openocd) fork with gd32vf103 flash driver.
+You can choose either [official OpenOCD](https://github.com/openocd-org/openocd) (0.12 and above version with complete gd32vf103 support) or [riscv-openocd](https://github.com/riscv/riscv-openocd) fork with gd32vf103 flash driver.
 
 Before building OpenOCD, you may need some development packages of libusb/libftdi/hidapi installed.
 
@@ -210,8 +210,6 @@ for Official OpenOCD:
 git clone https://github.com/openocd-org/openocd.git
 cd openocd
 git submodule update --init --recursive --progress
-wget https://raw.githubusercontent.com/cjacker/opensource-toolchain-gd32vf103/main/add-support-for-RISC-V-GigaDevice-GD32VF103.patch
-cat add-support-for-RISC-V-GigaDevice-GD32VF103.patch|patch -p1 -d .
 ./configure --prefix=/opt/openocd --program-prefix=riscv-
 make && make install
 ```
@@ -227,11 +225,11 @@ make && make install
 
 `riscv-openocd` command will be installed in `/opt/openocd/bin`, please add '/opt/openocd/bin' to PATH env according to your shell.
 
-If you used openocd before, it's very easy to understand OpenOCD need a interface config file for USB/JTAG adapter and a target config file for target developement board. you should choose a interface config file according to USB/JTAG adapter you use, and use the ['target board config file'](https://raw.githubusercontent.com/cjacker/opensource-toolchain-gd32vf103/main/gd32vf103.cfg) provied within this repo or download it from [here](https://gist.githubusercontent.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6/raw/f89019b9dc3cec778aaf073a11523d6030c7137c/gd32vf103.cfg), it's the most complete configration for gd32vf103 target board and support 'reset run' correctly, any other config files even the one provided by Nuclei SDK can not handle 'reset run' properly. 
+If you used openocd before, it's very easy to understand OpenOCD need a interface config file for USB/JTAG adapter and a target config file for target developement board. you should choose a interface config file according to USB/JTAG adapter you use, and use the ['target board config file'](https://github.com/cjacker/opensource-toolchain-gd32vf103/blob/main/gd32vf103-for-openocd-0.12.cfg) provied within this repo, it's modified from [this config](https://gist.githubusercontent.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6/raw/f89019b9dc3cec778aaf073a11523d6030c7137c/gd32vf103.cfg), and it's the most complete configration for gd32vf103 target board and support 'reset run' correctly, any other config files even the one provided by Nuclei SDK can not handle 'reset run' properly. 
 
 <img src="https://user-images.githubusercontent.com/1625340/156107374-999fe73e-2a89-4dfc-bb72-e133d30b6bcd.png" width="50%"/>
 
-Before continue reading, please wire up the USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter, you need connect 6 pins:
+Before continue reading, please wire up the your USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter, you need connect 6 pins:
 
 ```
 VCC->3v3
