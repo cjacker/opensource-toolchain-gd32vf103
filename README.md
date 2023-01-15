@@ -54,7 +54,7 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 
 # Hardware requirements
 * A development board with GD32VF103, such as Longan Nano
-* A USB/JTAG adapter
+* A USB/JTAG adapter, such as Jlink, Tigard etc.
 
 # Toolchain overview
 The GD32VF103 toolchain consists of:
@@ -240,10 +240,30 @@ TMS->TMS
 TCK->TCK
 ```
 
+If you use JLink adapter, note that JLink does not provide power to target board, you should use another USB cable to supply power for target board. And the connection is as same as above table except you do not need to connect the VCC pin of Longan nano:
+
+```
+GND->GND
+TDI->TDI
+TDO->TDO
+TMS->TMS
+TCK->TCK
+```
+
+
 * **Test OpenOCD connection**
+For tigard:
+
 ```
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg
 ```
+
+For JLink:
+
+```
+riscv-openocd -f jlink.cfg -f gd32vf103.cfg
+```
+
 the output looks like:
 ```
 Info : starting gdb server for riscv.cpu on 3333
@@ -299,6 +319,8 @@ $3 = 3389557
 ```
 
 * **Flashing**
+Change `tigard-jtag.cfg` to `jlink.cfg` if you use JLink.
+
 ```
 # program elf file
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.elf verify reset exit"
