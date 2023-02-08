@@ -229,7 +229,7 @@ If you used openocd before, it's very easy to understand OpenOCD need a interfac
 
 <img src="https://user-images.githubusercontent.com/1625340/156107374-999fe73e-2a89-4dfc-bb72-e133d30b6bcd.png" width="50%"/>
 
-Before continue reading, please wire up the your USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter, you need connect 6 pins:
+Before continue reading, please wire up the USB/JTAG adapter (Use 3.3v VCC pin) with Longan Nano board. Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter, you need connect 6 pins:
 
 ```
 VCC->3v3
@@ -240,7 +240,7 @@ TMS->TMS
 TCK->TCK
 ```
 
-If you use JLink adapter, note that JLink does not provide power to target board, you should use another USB cable to supply power for target board. And the connection is as same as above table except you do not need to connect the VCC pin of Longan nano:
+If you use JLink adapter, since JLink does not supply power to target board, you should use another USB cable to supply power. And the connection is as same as above table except you do not need to connect the VCC pin of Longan nano:
 
 ```
 GND->GND
@@ -331,11 +331,13 @@ riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "init; reset run; exit"
 ```
 
 you can combine various OpenOCD commands together, for example, run after flashing.
+
 ```
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.bin 0x08000000 verify reset exit" -c "init; reset run; exit"
 ```
 
 ## Flashing with dfu-util (no debugging support)
+
 The GD32VF103 contains a DFU compatible bootloader which allows to program the firmware of your longan-nano just using an ordinary USB-C cable without additional hardware like a JTAG adapter. You can use 'dfu-util' to flash the firmware.
 
 **Keep the BOOT0 button pressed while power-up or keep boot0 pressed, pressing and releasing the reset button will enter DFU mode**
@@ -351,6 +353,7 @@ sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 ```
 
 ## Flashing with stm32flash
+
 With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, you need wire up 4 pins:
 
 ```
