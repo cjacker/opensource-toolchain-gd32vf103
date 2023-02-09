@@ -109,16 +109,16 @@ And add `/opt/nuclei-riscv-toolchain/bin` to PATH env according to your shell.
 
 *   Xpack riscv toolchain
 
-[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack) provde a prebuilt toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v10.2.0-1.2. up to this tutorial written, the lastest version is '10.2.0', after download finished, extract it and add path to PATH env, for example:
+[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/) provde a prebuilt toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/. up to this tutorial written, the lastest version is '12.2.0', after download finished, extract it and add path to PATH env, for example:
 
 ```
 sudo mkdir -p /opt/xpack-riscv-toolchain
-sudo tar xf xpack-riscv-none-embed-gcc-10.2.0-1.2-linux-x64.tar.gz -C /opt/xpack-riscv-toolchain --strip-components=1
+sudo tar xf xpack-riscv-none-elf-gcc-12.2.0-3-linux-x64.tar.gz -C /opt/xpack-riscv-toolchain --strip-components=1
 ```
 
 and add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
 
-**NOTE**, the target triplet of xpack riscv toolchain is **`riscv-none-embed`**.
+**NOTE**, the target triplet of xpack riscv toolchain is **`riscv-none-elf`**.
 
 # SDK
 There are several SDKs you can use with gd32vf103/longan nano.
@@ -139,9 +139,9 @@ OS = riscv32-unknown-elf-size
 
 If you use xpack riscv toolchain, it should be changed to:
 ```
-CC = riscv-none-embed-gcc
-OC = riscv-none-embed-objcopy
-OS = riscv-none-embed-size
+CC = riscv-none-elf-gcc
+OC = riscv-none-elf-objcopy
+OS = riscv-none-elf-size
 ```
 
 If you use nuclei official toolchain, it should be changed to:
