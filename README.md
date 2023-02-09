@@ -68,6 +68,7 @@ gd32vf103 soc and longan nano development board is well supported by [riscv-gnu-
 The RISC-V GNU toolchain, which contains compilers and linkers like gcc and g++ as well as helper programs like objcopy and size is available from [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain). There are also some prebuilt release provided by nuclei or other teams, such as 'xpack', so you can either build it yourself or download a prebuilt release.
 
 ## Building from source
+
 If you want to use a prebuilt release, just ignore this section.
 
 Building a cross compile gnu toolchain was difficult long time ago, you need to understand and use configuration options very carefully. [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) provided a simpler way to help us building a workable toolchain. It supports two build modes: a generic ELF/Newlib toolchain and a more sophisticated Linux-ELF/glibc toolchain. we only need the 'generic ELF/Newlib toolchain' for gd32vf103.
@@ -95,7 +96,7 @@ There are a lot of prebuilt riscv toolchains you can download and use directly i
 
 *   Nuclei official toolchain
 
-Nucleisys provide prebuilt toolchain, you can download it from https://nucleisys.com/download.php. up to now, the lastest version is [nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2](https://nucleisys.com/upload/files/toochain/gcc/nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2). 
+Nucleisys provide prebuilt toolchain, you can download it from https://nucleisys.com/download.php. up to now, the lastest release is [nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2](https://nucleisys.com/upload/files/toochain/gcc/nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2), it contains riscv-gcc v10.2.0.
 
 Download and extract it to somewhere and modify the PATH env, for example:
 
@@ -157,7 +158,7 @@ OC = riscv-nuclei-elf-objcopy
 OS = riscv-nuclei-elf-size
 ```
 
-**Note2:** You need use `-march=rv32imac_zicsr` instead of `-march=rv32imac` with recent GCC release, change the 'Makefile' from:
+**Note2:** You may need to use `-march=rv32imac_zicsr` instead of `-march=rv32imac` with recent GCC release (such as 12.2.0), change the 'Makefile' from:
 
 ```
 -march=rv32imac
@@ -219,9 +220,11 @@ or
 
 
 # Flashing and Debugging
+
 After toolchain installed and demo examples built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
 
 ## Flashing and Debugging with OpenOCD
+
 The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
 
 ~~Upstream OpenOCD already support RISC-V, but lack of [GD32VF103 flash driver](https://review.openocd.org/c/openocd/+/6763) support. there is also some patches to [stm32f1x flash driver](https://review.openocd.org/c/openocd/+/6704) had been done and submitted for review.~~
