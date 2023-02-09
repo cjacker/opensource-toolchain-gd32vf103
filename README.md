@@ -90,17 +90,18 @@ export PATH=/opt/riscv-gnu-toolchain/bin:$PATH
 ```
 
 ## Use prebuilt toolchain
+
 There are a lot of prebuilt riscv toolchains you can download and use directly if it support the arch 'rv32imac'. Here are two choices with well support.
 
 *   Nuclei official toolchain
 
-Nucleisys provide prebuilt toolchain, you can download it from https://nucleisys.com/download.php. up to this tutorial written, the lastest version is "nuclei_riscv_newlibc_prebuilt_linux64_2022.01.tar.bz2". 
+Nucleisys provide prebuilt toolchain, you can download it from https://nucleisys.com/download.php. up to now, the lastest version is [nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2](https://nucleisys.com/upload/files/toochain/gcc/nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2). 
 
-After download finished, extract it to somewhere and modify the PATH env, for example:
+Download and extract it to somewhere and modify the PATH env, for example:
 
 ```
 sudo mkdir -p /opt/nuclei-riscv-toolchain
-sudo tar xf nuclei_riscv_newlibc_prebuilt_linux64_2022.01.tar.bz2 -C /opt/nuclei-riscv-toolchain --strip-components=1
+sudo tar xf nuclei_riscv_newlibc_prebuilt_linux64_<date>.tar.bz2 -C /opt/nuclei-riscv-toolchain --strip-components=1
 ```
 
 And add `/opt/nuclei-riscv-toolchain/bin` to PATH env according to your shell.
@@ -109,14 +110,14 @@ And add `/opt/nuclei-riscv-toolchain/bin` to PATH env according to your shell.
 
 *   Xpack riscv toolchain
 
-[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/) provde a prebuilt toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/. up to this tutorial written, the lastest version is '12.2.0', after download finished, extract it and add path to PATH env, for example:
+[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/) provde a prebuilt toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/. The lastest version is '12.2.0', Download and extract it:
 
 ```
 sudo mkdir -p /opt/xpack-riscv-toolchain
 sudo tar xf xpack-riscv-none-elf-gcc-12.2.0-3-linux-x64.tar.gz -C /opt/xpack-riscv-toolchain --strip-components=1
 ```
 
-and add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
+And add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
 
 **NOTE**, the target triplet of xpack riscv toolchain is **`riscv-none-elf`**.
 
