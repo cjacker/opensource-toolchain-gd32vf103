@@ -191,28 +191,25 @@ make
 
 ```
 git clone https://github.com/Nuclei-Software/nuclei-sdk.git
-cd application/baremetal
-make SOC=gd32vf103 BOARD=gd32vf103c_longan_nano COMPILE_PREFIX=riscv-none-embed-
+cd application/baremetal/helloworld
+make SOC=gd32vf103 BOARD=gd32vf103c_longan_nano COMPILE_PREFIX=riscv-none-elf-
 ```
 
-'COMPILE_PREFIX' should set to your toolchain's triplet, above example is for xpack risv toolchain, you can also modify the 'Build/Makefile.conf'.
-
-Change it from:
+With new gcc release, you also need append:
 
 ```
-COMPILE_PREFIX ?= riscv-nuclei-elf-
+RISCV_ARCH=rv32imac_zicfr
 ```
-to
-```
-COMPILE_PREFIX ?= riscv-none-embed-
-```
+
+'COMPILE_PREFIX' should set to your toolchain's triplet, above example is for xpack risv toolchain, you can also modify the 'Build/Makefile.conf' to change it.
 
 by default, it will generate the ELF file, run below command to generate bin file:
 
 ```
-make SOC=gd32vf103 BOARD=gd32vf103c_longan_nano COMPILE_PREFIX=riscv-none-embed- bin
+make SOC=gd32vf103 BOARD=gd32vf103c_longan_nano COMPILE_PREFIX=riscv-none-elf- bin
 ```
 or 
+
 ```
 <your riscv triplet>-objcopy helloworld.elf -O binary helloworld.bin
 
