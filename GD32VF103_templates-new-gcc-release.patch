@@ -1,0 +1,160 @@
+diff -Nur GD32VF103_templates/hello_display/Makefile GD32VF103_templatesn/hello_display/Makefile
+--- GD32VF103_templates/hello_display/Makefile	2023-02-09 17:24:57.320116749 +0800
++++ GD32VF103_templatesn/hello_display/Makefile	2023-02-09 17:43:56.622989560 +0800
+@@ -1,14 +1,14 @@
+ # GCC toolchain programs.
+-CC = riscv32-unknown-elf-gcc
+-OC = riscv32-unknown-elf-objcopy
+-OS = riscv32-unknown-elf-size
++CC = riscv-none-elf-gcc
++OC = riscv-none-elf-objcopy
++OS = riscv-none-elf-size
+ 
+ # Assembly directives.
+ ASFLAGS += -c
+ ASFLAGS += -O0
+ ASFLAGS += -Wall
+ ASFLAGS += -fmessage-length=0
+-ASFLAGS += -march=rv32imac
++ASFLAGS += -march=rv32imac_zicsr
+ ASFLAGS += -mabi=ilp32
+ ASFLAGS += -mcmodel=medlow
+ 
+@@ -19,7 +19,7 @@
+ CFLAGS += -g
+ CFLAGS += -fmessage-length=0
+ CFLAGS += --specs=nosys.specs
+-CFLAGS += -march=rv32imac
++CFLAGS += -march=rv32imac_zicsr
+ CFLAGS += -mabi=ilp32
+ CFLAGS += -mcmodel=medlow
+ 
+@@ -32,7 +32,7 @@
+ LFLAGS += -lc
+ LFLAGS += -lgcc
+ LFLAGS += --specs=nosys.specs
+-LFLAGS += -march=rv32imac
++LFLAGS += -march=rv32imac_zicsr
+ LFLAGS += -mabi=ilp32
+ LFLAGS += -mcmodel=medlow
+ LFLAGS += -T./../common/gd32vf103xb.ld
+diff -Nur GD32VF103_templates/hello_led/Makefile GD32VF103_templatesn/hello_led/Makefile
+--- GD32VF103_templates/hello_led/Makefile	2023-02-09 17:42:36.981064096 +0800
++++ GD32VF103_templatesn/hello_led/Makefile	2023-02-09 17:44:19.115968508 +0800
+@@ -1,14 +1,14 @@
+ # GCC toolchain programs.
+-CC = riscv32-unknown-elf-gcc
+-OC = riscv32-unknown-elf-objcopy
+-OS = riscv32-unknown-elf-size
++CC = riscv-none-elf-gcc
++OC = riscv-none-elf-objcopy
++OS = riscv-none-elf-size
+ 
+ # Assembly directives.
+ ASFLAGS += -c
+ ASFLAGS += -O0
+ ASFLAGS += -Wall
+ ASFLAGS += -fmessage-length=0
+-ASFLAGS += -march=rv32imac
++ASFLAGS += -march=rv32imac_zicsr
+ ASFLAGS += -mabi=ilp32
+ ASFLAGS += -mcmodel=medlow
+ 
+@@ -19,7 +19,7 @@
+ CFLAGS += -g
+ CFLAGS += -fmessage-length=0
+ CFLAGS += --specs=nosys.specs
+-CFLAGS += -march=rv32imac
++CFLAGS += -march=rv32imac_zicsr
+ CFLAGS += -mabi=ilp32
+ CFLAGS += -mcmodel=medlow
+ 
+@@ -32,7 +32,7 @@
+ LFLAGS += -lc
+ LFLAGS += -lgcc
+ LFLAGS += --specs=nosys.specs
+-LFLAGS += -march=rv32imac
++LFLAGS += -march=rv32imac_zicsr
+ LFLAGS += -mabi=ilp32
+ LFLAGS += -mcmodel=medlow
+ LFLAGS += -T./../common/gd32vf103xb.ld
+diff -Nur GD32VF103_templates/hello_riscv/Makefile GD32VF103_templatesn/hello_riscv/Makefile
+--- GD32VF103_templates/hello_riscv/Makefile	2023-02-09 17:24:57.321116752 +0800
++++ GD32VF103_templatesn/hello_riscv/Makefile	2023-02-09 17:44:28.473959751 +0800
+@@ -1,14 +1,14 @@
+ # GCC toolchain programs.
+-CC = riscv32-unknown-elf-gcc
+-OC = riscv32-unknown-elf-objcopy
+-OS = riscv32-unknown-elf-size
++CC = riscv-none-elf-gcc
++OC = riscv-none-elf-objcopy
++OS = riscv-none-elf-size
+ 
+ # Assembly directives.
+ ASFLAGS += -c
+ ASFLAGS += -O0
+ ASFLAGS += -Wall
+ ASFLAGS += -fmessage-length=0
+-ASFLAGS += -march=rv32imac
++ASFLAGS += -march=rv32imac_zicsr
+ ASFLAGS += -mabi=ilp32
+ ASFLAGS += -mcmodel=medlow
+ 
+@@ -19,7 +19,7 @@
+ CFLAGS += -g
+ CFLAGS += -fmessage-length=0
+ CFLAGS += --specs=nosys.specs
+-CFLAGS += -march=rv32imac
++CFLAGS += -march=rv32imac_zicsr
+ CFLAGS += -mabi=ilp32
+ CFLAGS += -mcmodel=medlow
+ 
+@@ -32,7 +32,7 @@
+ LFLAGS += -lc
+ LFLAGS += -lgcc
+ LFLAGS += --specs=nosys.specs
+-LFLAGS += -march=rv32imac
++LFLAGS += -march=rv32imac_zicsr
+ LFLAGS += -mabi=ilp32
+ LFLAGS += -mcmodel=medlow
+ LFLAGS += -T./../common/gd32vf103xb.ld
+diff -Nur GD32VF103_templates/hello_systick/Makefile GD32VF103_templatesn/hello_systick/Makefile
+--- GD32VF103_templates/hello_systick/Makefile	2023-02-09 17:24:57.321116752 +0800
++++ GD32VF103_templatesn/hello_systick/Makefile	2023-02-09 17:44:35.882952817 +0800
+@@ -1,14 +1,14 @@
+ # GCC toolchain programs.
+-CC = riscv32-unknown-elf-gcc
+-OC = riscv32-unknown-elf-objcopy
+-OS = riscv32-unknown-elf-size
++CC = riscv-none-elf-gcc
++OC = riscv-none-elf-objcopy
++OS = riscv-none-elf-size
+ 
+ # Assembly directives.
+ ASFLAGS += -c
+ ASFLAGS += -O0
+ ASFLAGS += -Wall
+ ASFLAGS += -fmessage-length=0
+-ASFLAGS += -march=rv32imac
++ASFLAGS += -march=rv32imac_zicsr
+ ASFLAGS += -mabi=ilp32
+ ASFLAGS += -mcmodel=medlow
+ 
+@@ -19,7 +19,7 @@
+ CFLAGS += -g
+ CFLAGS += -fmessage-length=0
+ CFLAGS += --specs=nosys.specs
+-CFLAGS += -march=rv32imac
++CFLAGS += -march=rv32imac_zicsr
+ CFLAGS += -mabi=ilp32
+ CFLAGS += -mcmodel=medlow
+ 
+@@ -32,7 +32,7 @@
+ LFLAGS += -lc
+ LFLAGS += -lgcc
+ LFLAGS += --specs=nosys.specs
+-LFLAGS += -march=rv32imac
++LFLAGS += -march=rv32imac_zicsr
+ LFLAGS += -mabi=ilp32
+ LFLAGS += -mcmodel=medlow
+ LFLAGS += -T./../common/gd32vf103xb.ld
