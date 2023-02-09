@@ -129,7 +129,7 @@ There are several SDKs you can use with gd32vf103/longan nano.
 ```
 git clone https://github.com/WRansohoff/GD32VF103_templates.git
 ```
-Note, you need modify 'Makefile' of every example to match your toolchain triplet, the default triplet of GD32VF103_templates is set to:
+**Note1:** you need modify 'Makefile' of every example to match your toolchain triplet, the default triplet of GD32VF103_templates is set to:
 
 ```
 CC = riscv32-unknown-elf-gcc
@@ -151,7 +151,20 @@ OC = riscv-nuclei-elf-objcopy
 OS = riscv-nuclei-elf-size
 ```
 
-then try build a project:
+**Note2:** You need use `-march=rv32imac_zicsr` instead of `-march=rv32imac` with recent GCC release, change the 'Makefile' from:
+
+```
+-march=rv32imac
+```
+
+to:
+
+```
+-march=rv32imac_zicsr
+```
+
+
+Then try build a project:
 ```
 cd hello_led
 make
@@ -161,6 +174,7 @@ make
 
 
 ## Nuclei official SDK
+
 [Nuclei RISC-V Software Development Kit](https://github.com/Nuclei-Software/nuclei-sdk) is provided by nucleisys.
 
 ```
