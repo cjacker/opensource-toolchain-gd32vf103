@@ -129,6 +129,11 @@ There are several SDKs you can use with gd32vf103/longan nano.
 ```
 git clone https://github.com/WRansohoff/GD32VF103_templates.git
 ```
+or use the submodule of this repo:
+```
+git submodule update --init --progress
+```
+
 **Note1:** you need modify 'Makefile' of every example to match your toolchain triplet, the default triplet of GD32VF103_templates is set to:
 
 ```
@@ -163,6 +168,11 @@ to:
 -march=rv32imac_zicsr
 ```
 
+To save your time, I made a patch 'GD32VF103_templates-new-gcc-release.patch', you can use it directly:
+
+```
+cat GD32VF103_templates-new-gcc-release.patch|patch -p1 -d GD32VF103_templates
+```
 
 Then try build a project:
 ```
