@@ -188,10 +188,10 @@ make
 
 You can download 'GD32VF103_Firmware_Library_V1.1.5.rar' from [GigaDevice website](https://gd32mcu.com/en/download/0?kw=GD32VF1). the upstream firmware library lack makefile support and depend on some IDEs.
 
-Here is [a updated fork of official firmware library](https://github.com/cjacker/gd32vf103_firmware_library), I add the makefile support and demo codes to blink the led of longan nano.
+Here is [a updated fork of official firmware library](https://github.com/cjacker/gd32vf103_firmware_library_gcc_makefile), I add the makefile support and demo codes to blink the led of longan nano.
 
 ```
-git clone https://github.com/cjacker/gd32vf103_firmware_library
+git clone https://github.com/cjacker/gd32vf103_firmware_library_gcc_makefile
 cd gd32vf103_firmware_library
 make
 ```
