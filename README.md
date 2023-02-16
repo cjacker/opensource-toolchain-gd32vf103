@@ -52,14 +52,14 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 <img src="https://user-images.githubusercontent.com/1625340/155824632-bb1fb2d2-301c-434b-b41c-b466d4aee71d.png" width="70%"/>
 </p>
 
-# Hardware requirements
+# Hardware prerequist:
 * A development board with GD32VF103, such as Longan Nano
 * A USB/JTAG adapter, such as Jlink, Tigard etc.
 
 # Toolchain overview
 The GD32VF103 toolchain consists of:
 * Compiler/Debugger, RISC-V GNU toolchain for C/C++ development, gcc as compiler and gdb as debugger
-* SDKs, baremetal programming and Nucleisys SDK
+* SDKs, baremetal programming , gigadevice official firmware library and Nucleisys SDK
 * Flashing tool, include OpenOCD/dfu-util/stm32flash/RV LINK
 
 # RISC-V GNU Toolchain for gd32vf103
@@ -184,6 +184,34 @@ make
 
 'main.elf' and 'main.bin' will be generated. but you can do nothing with them up to now, since it need to 'transfer' to target development board.
 
+## GigaDevice official GD32VF103 Firmware Library
+
+You can download 'GD32VF103_Firmware_Library_V1.1.5.rar' from [GigaDevice website](https://gd32mcu.com/en/download/0?kw=GD32VF1). the upstream firmware library lack makefile support and depend on some IDEs.
+
+Here is [a updated fork of official firmware library](https://github.com/cjacker/gd32vf103_firmware_library), I add the makefile support and demo codes to blink the led of longan nano.
+
+```
+git clone https://github.com/cjacker/gd32vf103_firmware_library
+cd gd32vf103_firmware_library
+make
+```
+This firmware library can support all gd32vf103 risc-v parts:
+- gd32vf103c4t6
+- gd32vf103c6t6
+- gd32vf103c8t6
+- gd32vf103cbt6
+- gd32vf103r4t6
+- gd32vf103r6t6
+- gd32vf103r8t6
+- gd32vf103rbt6
+- gd32vf103t4u6
+- gd32vf103t6u6
+- gd32vf103t8u6
+- gd32vf103tbu6
+- gd32vf103v8t6
+- gd32vf103vbt6
+
+The default part is set to 'gd32vf103cbt6' for longan nano board, you can change it with `./setpart.sh <part>`.
 
 ## Nuclei official SDK
 
