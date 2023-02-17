@@ -1,7 +1,5 @@
 # Opensource toolchain for gd32vf103
 
-**NOTE: the MIT license of this repo means all individual resources made by myself, the content of the tutorial and the example codes is licensed under MIT. All third-party opensource projects, upstream source codes and patches to other opensource projects will/should follow their own LICENSE.**
-
 **GD32VF103 SoC** is the first general RISC-V MCU from GigaDevice Semiconductor which is based on Nuclei RISC-V Process Core.
 
 If you want to learn more about it, please click https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/
@@ -52,17 +50,28 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 <img src="https://user-images.githubusercontent.com/1625340/155824632-bb1fb2d2-301c-434b-b41c-b466d4aee71d.png" width="70%"/>
 </p>
 
+# Table of contents
+- [Hardware prerequist](https://github.com/cjacker/opensource-toolchain-gd32vf103#hardware-prerequist)
+- [Toolchian overview](https://github.com/cjacker/opensource-toolchain-gd32vf103#toolchain-overview)
+- [RISC-V GNU Toolchain](https://github.com/cjacker/opensource-toolchain-gd32vf103#risc-v-gnu-toolchain)
+  + [Building from source](https://github.com/cjacker/opensource-toolchain-gd32vf103#building-from-source)
+  + [prebuilt toolchain](https://github.com/cjacker/opensource-toolchain-gd32vf103#use-prebuilt-toolchain)
+- [SDK]
+  + [baremetal programming](https://github.com/cjacker/opensource-toolchain-gd32vf103/edit/main/README.md#baremetal-programming)
+  + [Official firmware library](https://github.com/cjacker/opensource-toolchain-gd32vf103/edit/main/README.md#official-firmware-library)
+
 # Hardware prerequist:
 * A development board with GD32VF103, such as Longan Nano
 * A USB/JTAG adapter, such as Jlink, Tigard etc.
 
 # Toolchain overview
+
 The GD32VF103 toolchain consists of:
 * Compiler/Debugger, RISC-V GNU toolchain for C/C++ development, gcc as compiler and gdb as debugger
 * SDKs, baremetal programming , gigadevice official firmware library and Nucleisys SDK
 * Flashing tool, include OpenOCD/dfu-util/stm32flash/RV LINK
 
-# RISC-V GNU Toolchain for gd32vf103
+# RISC-V GNU Toolchain
 gd32vf103 soc and longan nano development board is well supported by [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust [gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) and [longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, please refer to [riscv-rust/longan-nano](https://github.com/riscv-rust/longan-nano).
 
 The RISC-V GNU toolchain, which contains compilers and linkers like gcc and g++ as well as helper programs like objcopy and size is available from [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain). There are also some prebuilt release provided by nuclei or other teams, such as 'xpack', so you can either build it yourself or download a prebuilt release.
@@ -94,7 +103,21 @@ export PATH=/opt/riscv-gnu-toolchain/bin:$PATH
 
 There are a lot of prebuilt riscv toolchains you can download and use directly if it support the arch 'rv32imac'. Here are two choices with well support.
 
-*   Nuclei official toolchain
+
+### Xpack riscv toolchain
+
+[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/) provde a prebuilt toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/. The lastest version is '12.2.0', Download and extract it:
+
+```
+sudo mkdir -p /opt/xpack-riscv-toolchain
+sudo tar xf xpack-riscv-none-elf-gcc-12.2.0-3-linux-x64.tar.gz -C /opt/xpack-riscv-toolchain --strip-components=1
+```
+
+And add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
+
+**NOTE**, the target triplet of xpack riscv toolchain is **`riscv-none-elf`**.
+
+### Nuclei toolchain
 
 Nucleisys provide prebuilt toolchain, you can download it from https://nucleisys.com/download.php. up to now, the lastest release is [nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2](https://nucleisys.com/upload/files/toochain/gcc/nuclei_riscv_newlibc_prebuilt_linux64_2022.12.tar.bz2), it contains riscv-gcc v10.2.0.
 
@@ -109,23 +132,10 @@ And add `/opt/nuclei-riscv-toolchain/bin` to PATH env according to your shell.
 
 **NOTE**, the target triplet of nuclei riscv toolchain is **`riscv-nuclei-elf`**.
 
-*   Xpack riscv toolchain
-
-[xpack-dev-tools](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/) provde a prebuilt toolchain for riscv. you can download it from https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/. The lastest version is '12.2.0', Download and extract it:
-
-```
-sudo mkdir -p /opt/xpack-riscv-toolchain
-sudo tar xf xpack-riscv-none-elf-gcc-12.2.0-3-linux-x64.tar.gz -C /opt/xpack-riscv-toolchain --strip-components=1
-```
-
-And add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
-
-**NOTE**, the target triplet of xpack riscv toolchain is **`riscv-none-elf`**.
-
 # SDK
 There are several SDKs you can use with gd32vf103/longan nano.
 
-## Minimum baremetal SDK
+## Baremetal Programming
 [GD32VF103_templates](https://github.com/WRansohoff/GD32VF103_templates) provide minimum baremetal SDK and some project templates for demo.
 
 ```
@@ -184,7 +194,7 @@ make
 
 'main.elf' and 'main.bin' will be generated. but you can do nothing with them up to now, since it need to 'transfer' to target development board.
 
-## GigaDevice official GD32VF103 Firmware Library
+## Official Firmware Library
 
 You can download 'GD32VF103_Firmware_Library_V1.1.5.rar' from [GigaDevice website](https://gd32mcu.com/en/download/0?kw=GD32VF1). the upstream firmware library lack makefile support and depend on some IDEs.
 
@@ -213,7 +223,7 @@ This firmware library can support all gd32vf103 risc-v parts:
 
 The default part is set to 'gd32vf103cbt6' for longan nano board, you can change it with `./setpart.sh <part>`.
 
-## Nuclei official SDK
+## Nuclei SDK
 
 [Nuclei RISC-V Software Development Kit](https://github.com/Nuclei-Software/nuclei-sdk) is provided by nucleisys.
 
@@ -244,11 +254,11 @@ or
 ```
 
 
-# Flashing and Debugging
+# Programming and Debugging
 
 After toolchain installed and demo examples built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
 
-## Flashing and Debugging with OpenOCD
+## Programming and Debugging with OpenOCD
 
 The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
 
@@ -371,7 +381,7 @@ $3 = 3389557
 (gdb)
 ```
 
-* **Flashing**
+* **Programming**
 Change `tigard-jtag.cfg` to `jlink.cfg` if you use JLink.
 
 ```
@@ -389,7 +399,7 @@ you can combine various OpenOCD commands together, for example, run after flashi
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.bin 0x08000000 verify reset exit" -c "init; reset run; exit"
 ```
 
-## Flashing with dfu-util (no debugging support)
+## Programming with dfu-util
 
 The GD32VF103 contains a DFU compatible bootloader which allows to program the firmware of your longan-nano just using an ordinary USB-C cable without additional hardware like a JTAG adapter. You can use 'dfu-util' to flash the firmware.
 
@@ -405,7 +415,7 @@ Programming:
 sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 ```
 
-## Flashing with stm32flash
+## Programming with stm32flash
 
 With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, you need wire up 4 pins:
 
@@ -426,7 +436,7 @@ and run :
 sudo stm32flash -g 0x08000000 -b 115200 -w main.bin /dev/ttyUSB0
 ```
 
-## Flashing and Debugging with RV-LINK
+## Programming and Debugging with RV-LINK
 
 RV-LINK is a Chinese firmware similar to Black Magic Probe (BMP). It need another piece of Longan Nano as a debugging adapter. please refer to https://gitee.com/zoomdy/RV-LINK for more information.
 
