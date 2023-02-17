@@ -447,7 +447,7 @@ sudo stm32flash -g 0x08000000 -b 115200 -w main.bin /dev/ttyUSB0
 
 ## Programming and Debugging with RV-LINK
 
-RV-LINK is a Chinese firmware similar to Black Magic Probe (BMP). It need another piece of Longan Nano as a debugging adapter. please refer to https://gitee.com/zoomdy/RV-LINK for more information.
+RV-LINK is a firmware similar to Black Magic Probe (BMP). It need another piece of Longan Nano as a debugging adapter. please refer to https://gitee.com/zoomdy/RV-LINK for more information.
 
 
 
