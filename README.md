@@ -71,7 +71,7 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 
 # Hardware prerequist:
 * A development board with GD32VF103, such as Longan Nano
-* A USB/JTAG adapter, such as Jlink, Tigard etc.
+* A USB/JTAG adapter, such as JLink, Tigard etc.
 
 # Toolchain overview
 
