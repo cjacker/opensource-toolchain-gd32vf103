@@ -56,9 +56,18 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 - [RISC-V GNU Toolchain](https://github.com/cjacker/opensource-toolchain-gd32vf103#risc-v-gnu-toolchain)
   + [Building from source](https://github.com/cjacker/opensource-toolchain-gd32vf103#building-from-source)
   + [prebuilt toolchain](https://github.com/cjacker/opensource-toolchain-gd32vf103#use-prebuilt-toolchain)
-- [SDK]
+    - [XPack gnu toolchain](https://github.com/cjacker/opensource-toolchain-gd32vf103#xpack-riscv-toolchain)
+    - [Nuclei gnu toolchain](https://github.com/cjacker/opensource-toolchain-gd32vf103#nuclei-toolchain)
+- [SDK](https://github.com/cjacker/opensource-toolchain-gd32vf103#sdk)
   + [baremetal programming](https://github.com/cjacker/opensource-toolchain-gd32vf103/edit/main/README.md#baremetal-programming)
   + [Official firmware library](https://github.com/cjacker/opensource-toolchain-gd32vf103/edit/main/README.md#official-firmware-library)
+  + [Nuclei SDK](https://github.com/cjacker/opensource-toolchain-gd32vf103#nuclei-sdk)
+- [Programming and debugging](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-and-debugging)
+  + [with OpenOCD](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-and-debugging-with-openocd)
+  + [with dfu-util](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-with-dfu-util)
+  + [with stm32flash](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-with-stm32flash)
+  + [with RVLink](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-and-debugging-with-rv-link)
+
 
 # Hardware prerequist:
 * A development board with GD32VF103, such as Longan Nano
