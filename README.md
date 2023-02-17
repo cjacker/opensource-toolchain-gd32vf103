@@ -6,43 +6,25 @@ If you want to learn more about it, please click https://www.gigadevice.com/prod
 
 The GD32VF103 device is a 32-bit general-purpose micro controller based on the RISC-V core with best ratio in terms of processing power, reduced power consumption and peripheral set.
 
-The RISC-V processor core is tightly coupled with an Enhancement Core-Local Interrupt Controller(ECLIC), SysTick timer and advanced debug support.
-
-The GD32VF103 device incorporates the RISC-V 32-bit processor core operating at 108MHz frequency with Flash accesses zero wait states to obtain maximum efficiency.
-
-It provides up to 128KB on-chip Flash memory and 32KB SRAM memory.
-
-An extensive range of enhanced I/Os and peripherals connect to two APB buses.
-
-The devices offer up to two 12-bit ADCs, up to two 12-bit DACs, up to four general 16-bit timers, two basic timers plus a PWM advanced timer, as well as standard and advanced communication interfaces: up to three SPIs, two I2Cs, three USARTs, two UARTs, two I2Ss, two CANs, an USBFS.
-
-The SoC diagram can be checked as below GD32VF103 SoC Diagram:
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/1625340/155824560-96b510b6-1613-4c9f-9c5b-7228ff2a6d80.png" width="70%"/>
-</p>
-
-
 **Longan Nano** is a GD32VF103CBT6 based minimal development board based on GigaDevice's latest RISC-V 32-bit core microcontroller. Convenient for students, engineers, geeks and enthusiasts to access the latest generation of RISC-V processors.
 
 In the heart of Longan Nano is a GigaDevice's GD32VF103CBT6, based on Nucleisys Bumblebee kernel (support RV32IMAC instruction sets and ECLIC rapid interrupt). You can download instruction set documents here: http://dl.sipeed.com/LONGAN/Nano/DOC/.
 
 The chip has built-in 128KB Flash, 32KB SRAM, and peripherals listes below:
-
-    4 x universal 16-bit timer
-    2 x basic 16-bit timer
-    1 x advanced 16-bit timer
-    Watchdog timer
-    RTC
-    Systick
-    3 x USART
-    2 x I2C
-    3 x SPI
-    2 x I2S
-    2 x CAN
-    1 x USBFS(OTG)
-    2 x ADC(10 channel)
-    2 x DAC
+- 4 x universal 16-bit timer
+- 2 x basic 16-bit timer
+- 1 x advanced 16-bit timer
+- Watchdog timer
+- RTC
+- Systick
+- 3 x USART
+- 2 x I2C
+- 3 x SPI
+- 2 x I2S
+- 2 x CAN
+- 1 x USBFS(OTG)
+- 2 x ADC(10 channel)
+- 2 x DAC
 
 Longan Nano development board is breadboard friendly. It has onboard 8M passive crystal, 32.768KHz RTC low-speed crystal, mini TF card slot, and use the latest Type-C USB interface.
 
@@ -63,10 +45,10 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
   + [Official firmware library](https://github.com/cjacker/opensource-toolchain-gd32vf103#official-firmware-library)
   + [Nuclei SDK](https://github.com/cjacker/opensource-toolchain-gd32vf103#nuclei-sdk)
 - [Programming and debugging](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-and-debugging)
-  + [with OpenOCD](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-and-debugging-with-openocd)
-  + [with dfu-util](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-with-dfu-util)
-  + [with stm32flash](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-with-stm32flash)
-  + [with RVLink](https://github.com/cjacker/opensource-toolchain-gd32vf103#programming-and-debugging-with-rv-link)
+  + [with OpenOCD](https://github.com/cjacker/opensource-toolchain-gd32vf103#with-openocd)
+  + [with dfu-util](https://github.com/cjacker/opensource-toolchain-gd32vf103#dfu-util)
+  + [with stm32flash](https://github.com/cjacker/opensource-toolchain-gd32vf103#stm32flash)
+  + [with RVLink](https://github.com/cjacker/opensource-toolchain-gd32vf103#with-rv-link)
 
 
 # Hardware prerequist:
@@ -76,18 +58,22 @@ Longan Nano development board is breadboard friendly. It has onboard 8M passive 
 # Toolchain overview
 
 The GD32VF103 toolchain consists of:
-* Compiler/Debugger, RISC-V GNU toolchain for C/C++ development, gcc as compiler and gdb as debugger
-* SDKs, baremetal programming , gigadevice official firmware library and Nucleisys SDK
-* Flashing tool, include OpenOCD/dfu-util/stm32flash/RV LINK
+* Compiler: RISC-V GNU toolchain, Rust
+* SDK: baremetal programming, gigadevice official firmware library and Nucleisys SDK
+* Programming tool: OpenOCD / dfu-util / stm32flash / RV LINK
+* Debugger: OpenOCD / gdb
 
 # RISC-V GNU Toolchain
-gd32vf103 soc and longan nano development board is well supported by [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust [gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) and [longan-nano](https://crates.io/crates/longan-nano). for Rust toolchain, please refer to [riscv-rust/longan-nano](https://github.com/riscv-rust/longan-nano).
+
+gd32vf103 soc and longan nano development board is well supported by [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and Rust [gd32vf103xx-hal](https://crates.io/crates/gd32vf103xx-hal) and [longan-nano](https://crates.io/crates/longan-nano). 
+
+For Rust toolchain, there is already a good tutorial, please refer to [riscv-rust/longan-nano](https://github.com/riscv-rust/longan-nano).
 
 The RISC-V GNU toolchain, which contains compilers and linkers like gcc and g++ as well as helper programs like objcopy and size is available from [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain). There are also some prebuilt release provided by nuclei or other teams, such as 'xpack', so you can either build it yourself or download a prebuilt release.
 
 ## Building from source
 
-If you want to use a prebuilt release, just ignore this section.
+If you decide to use a prebuilt release, just ignore this section.
 
 Building a cross compile gnu toolchain was difficult long time ago, you need to understand and use configuration options very carefully. [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) provided a simpler way to help us building a workable toolchain. It supports two build modes: a generic ELF/Newlib toolchain and a more sophisticated Linux-ELF/glibc toolchain. we only need the 'generic ELF/Newlib toolchain' for gd32vf103.
 
@@ -207,7 +193,7 @@ make
 
 You can download 'GD32VF103_Firmware_Library_V1.1.5.rar' from [GigaDevice website](https://gd32mcu.com/en/download/0?kw=GD32VF1). the upstream firmware library lack makefile support and depend on some IDEs.
 
-Here is [a updated fork of official firmware library](https://github.com/cjacker/gd32vf103_firmware_library_gcc_makefile), I add the makefile support and demo codes to blink the led of longan nano.
+Here is [a updated fork of official firmware library](https://github.com/cjacker/gd32vf103_firmware_library_gcc_makefile), I add makefile support and demo codes to blink the led of longan nano.
 
 ```
 git clone https://github.com/cjacker/gd32vf103_firmware_library_gcc_makefile
@@ -265,9 +251,9 @@ or
 
 # Programming and Debugging
 
-After toolchain installed and demo examples built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
+After toolchain installed and demo built, you need to 'transfer' the result binary to development board. there are 4 way to do this job.
 
-## Programming and Debugging with OpenOCD
+## with OpenOCD
 
 The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming and boundary-scan testing for embedded target devices. Generally, you can think OpenOCD as a bridge to connect host to target board via SWD/JTAG adapter, to provide a channel for devices programming and remote debugging.
 
@@ -408,11 +394,14 @@ you can combine various OpenOCD commands together, for example, run after flashi
 riscv-openocd -f tigard-jtag.cfg -f gd32vf103.cfg -c "program main.bin 0x08000000 verify reset exit" -c "init; reset run; exit"
 ```
 
-## Programming with dfu-util
+## with dfu-util
 
-The GD32VF103 contains a DFU compatible bootloader which allows to program the firmware of your longan-nano just using an ordinary USB-C cable without additional hardware like a JTAG adapter. You can use 'dfu-util' to flash the firmware.
+The GD32VF103 contains a DFU compatible bootloader which allows to program the firmware of longan-nano just using an ordinary USB-C cable without additional hardware like JTAG adapter. You can use 'dfu-util' to flash the firmware.
 
-**Keep the BOOT0 button pressed while power-up or keep boot0 pressed, pressing and releasing the reset button will enter DFU mode**
+To enter bootloader:
+- Hold 'BOOT0' button down while power-up, then release
+or
+- Hold 'BOOT0' button down, press and release 'RESET' button, then release 'BOOT0' button
 
 Device detection:
 ```
@@ -424,9 +413,9 @@ Programming:
 sudo dfu-util -a 0 -s 0x08000000:leave -D main.bin
 ```
 
-## Programming with stm32flash
+## with stm32flash
 
-With a USB/UART adapter, the board can be programmed by stm32flash over serial connection, you need wire up 4 pins:
+With a USB2TTL adapter, the board can be programmed by stm32flash over serial connection, you need wire up 4 pins:
 
 ```
 VCC->3v3
@@ -434,18 +423,22 @@ GND->GND
 RX->T0
 TX->R0
 ```
-**If you USB-to-TTL adapter provide 5v VCC only**, it can not connect to 3v3 pin on longan board directly, you should connect the 5v VCC to first pin of leftside, it's 5V pin on longan board.
+**If you USB-to-TTL adapter provide 5V VCC only**, it can not connect to 3v3 pin on longan board directly, you should connect the 5v VCC to first pin of leftside, it's 5V pin on longan board.
 
 
-**Keep the BOOT0 button pressed while power-up or keep boot0 pressed, pressing and releasing the reset button will enter BootLoader mode**
+To enter bootloader:
 
-and run :
+- Hold 'BOOT0' button down while power-up, then release
+or
+- Hold 'BOOT0' button down, press and release 'RESET' button, then release 'BOOT0' button
+
+And run :
 
 ```
 sudo stm32flash -g 0x08000000 -b 115200 -w main.bin /dev/ttyUSB0
 ```
 
-## Programming and Debugging with RV-LINK
+## with RV-LINK
 
 RV-LINK is a firmware similar to Black Magic Probe (BMP). It need another piece of Longan Nano as a debugging adapter. please refer to https://gitee.com/zoomdy/RV-LINK for more information.
 
