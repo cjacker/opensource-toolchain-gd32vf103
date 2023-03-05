@@ -1,5 +1,9 @@
 # Opensource toolchain for gd32vf103
 
+**Update Mar 05 2023** : gd32vf103 series was released at 2019, it seems this product line was already stalled or abandoned by GigaDevice. I am not sure about that, but 4 years past, there is no update with this product line.
+
+<hr>
+
 **GD32VF103 SoC** is the first general RISC-V MCU from GigaDevice Semiconductor which is based on Nuclei RISC-V Process Core.
 
 If you want to learn more about it, please click https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/
