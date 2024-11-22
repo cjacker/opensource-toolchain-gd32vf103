@@ -108,15 +108,15 @@ And add `/opt/xpack-riscv-toolchain/bin` to PATH env according to your shell.
 There are several SDKs you can use with gd32vf103/longan nano.
 
 ## Baremetal Programming
-[GD32VF103_templates](https://github.com/WRansohoff/GD32VF103_templates) provide some minimum baremetal examples, since latest gcc use '-march=rv32imac_zicsr' instead of '-march=rv32imac', I make a local copy in this repo and change the default toolchain to 'riscv-none-elf-gcc' and set '-march=rv32imac_zicsr', please refer to [GD32VF103_baremetal_examples](https://github.com/cjacker/opensource-toolchain-gd32vf103/GD32VF103_baremetal_examples). 
+[GD32VF103_templates](https://github.com/WRansohoff/GD32VF103_templates) provide some minimum baremetal examples, since latest gcc use '-march=rv32imac_zicsr' instead of '-march=rv32imac', I make a local copy in this repo and change the default toolchain to 'riscv-none-elf-gcc' and set '-march=rv32imac_zicsr', please refer to [GD32VF103_baremetal_examples](https://github.com/cjacker/opensource-toolchain-gd32vf103/tree/main/GD32VF103_baremetal_examples).
 
-And try build an example:
+And try build an example as:
 ```
 cd hello_led
 make
 ```
 
-'main.elf' and 'main.bin' will be generated.
+After built successfully, 'main.elf' and 'main.bin' will be generated.
 
 ## Official Firmware Library
 
@@ -168,11 +168,11 @@ make && make install
 
 `riscv-openocd` command will be installed to `/opt/openocd/bin`, please add '/opt/openocd/bin' to PATH env.
 
-After riscv-openocd installed, please use [gd32vf103-with-reset-run-improved.cfg](https://github.com/cjacker/opensource-toolchain-gd32vf103/gd32vf103-with-reset-run-improved.cfg) instead of 'gd32vf103.cfg' shipped with OpenOCD 0.12. This target cfg file is a improved version by [elfmimi](https://gist.github.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6) to support 'reset run' correctly.
+After riscv-openocd installed, please use [gd32vf103-with-reset-run-improved.cfg](https://raw.githubusercontent.com/cjacker/opensource-toolchain-gd32vf103/refs/heads/main/gd32vf103-with-reset-run-improved.cfg) instead of 'gd32vf103.cfg' shipped with OpenOCD 0.12. This target cfg file is a improved version by [elfmimi](https://gist.github.com/elfmimi/1deb9c94b0f0900ae8a9df740b62bcd6) to support 'reset run' correctly.
 
 <img src="https://user-images.githubusercontent.com/1625340/156107374-999fe73e-2a89-4dfc-bb72-e133d30b6bcd.png" width="50%"/>
 
-Then wire up your USB/JTAG adapter (Use 3.3V VCC pin) with Longan Nano board, you may need connect 6 pins, Here I use [tigard with FT2232](https://github.com/tigard-tools/tigard) as USB/JTAG adapter.
+Then wire up the USB/JTAG adapter (Use 3.3V VCC pin) with Longan Nano board, you may need connect 6 pins:
 
 ```
 VCC->3v3
@@ -184,6 +184,8 @@ TCK->TCK
 ```
 
 If you use JLink adapter, since it does not supply power to target board, you may need another USB cable to supply power.
+
+In this tutorial, I use [tigard](https://github.com/tigard-tools/tigard) as USB/JTAG adapter.
 
 * **Test OpenOCD connection**
 
@@ -210,10 +212,11 @@ Info : starting gdb server for riscv.cpu on 3333
 Info : Listening on port 3333 for gdb connections
 Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
+
 ```
 * **Debugging**
 
-Here use [hello_riscv](https://github.com/cjacker/opensource-toolchain-gd32vf103/GD32VF103_baremetal_examples/hello_riscv) as example.
+Here use [hello_riscv](https://github.com/cjacker/opensource-toolchain-gd32vf103/tree/main/GD32VF103_baremetal_examples/hello_riscv) as example.
 
 After launch OpenOCD with `riscv-openocd -f tigard-jag.cfg -f gd32vf103-with-reset-run-improved.cfg`, run `riscv-none-elf-gdb -q main.elf`:
 
